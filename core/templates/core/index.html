@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ project_name }}</title>
+    {% if project_description %}
+    <meta name="description" content="{{ project_description }}">
+    <meta property="og:description" content="{{ project_description }}">
+    <meta property="twitter:description" content="{{ project_description }}">
+    {% endif %}
+    {% if project_image_url %}
+    <meta property="og:image" content="{{ project_image_url }}">
+    <meta property="twitter:image" content="{{ project_image_url }}">
+    {% endif %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color-start: #6a11cb;
+            --bg-color-end: #2575fc;
+            --text-color: #ffffff;
+            --card-bg-color: rgba(255, 255, 255, 0.08);
+            --card-border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(130deg, var(--bg-color-start), var(--bg-color-end));
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><path d='M-20 20L160 20M20 -20L20 160' stroke-width='1' stroke='rgba(255,255,255,0.05)'/></svg>");
+            animation: bg-pan 24s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes bg-pan {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+
+            100% {
+                transform: translate3d(-140px, -140px, 0);
+            }
+        }
+
+        main {
+            padding: clamp(2rem, 4vw, 3rem);
+            width: min(640px, 92vw);
+        }
+
+        .card {
+            background: var(--card-bg-color);
+            border: 1px solid var(--card-border-color);
+            border-radius: 20px;
+            padding: clamp(2rem, 4vw, 3rem);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
+        }
+
+        h1 {
+            margin: 0 0 1.2rem;
+            font-weight: 700;
+            font-size: clamp(2.2rem, 3vw + 1.3rem, 3rem);
+            letter-spacing: -0.04em;
+        }
+
+        p {
+            margin: 0.6rem 0;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            opacity: 0.92;
+        }
+
+        .loader {
+            margin: 1.5rem auto;
+            width: 56px;
+            height: 56px;
+            border: 4px solid rgba(255, 255, 255, 0.25);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        code {
+            background: rgba(15, 23, 42, 0.35);
+            padding: 0.2rem 0.6rem;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            margin-top: 2.4rem;
+            font-size: 0.86rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="card">
+            <h1>Analyzing your requirements and generating your website…</h1>
+            <div class="loader" role="status" aria-live="polite" aria-label="Applying initial changes">
+                <span class="sr-only">Loading…</span>
+            </div>
+            <p>Appwizzy AI is collecting your requirements and applying the first changes.</p>
+            <p>This page will refresh automatically as the plan is implemented.</p>
+            <p>
+                Runtime: Django <code>{{ django_version }}</code> · Python <code>{{ python_version }}</code> —
+                UTC <code>{{ current_time|date:"Y-m-d H:i:s" }}</code>
+            </p>
+        </div>
+        <footer>
+            Page updated: {{ current_time|date:"Y-m-d H:i:s" }} (UTC)
+        </footer>
+    </main>
+</body>
+
+</html>
